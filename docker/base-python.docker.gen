@@ -112,7 +112,7 @@ print("%sx%s-%s" % (age_start.strftime("%Y%m%d"), build_every_n_days, dockerfile
 main() {
 	local tag
 	# tag=$(print-tag)
-	tag=20221225x7-832d7d6d33932250
+	tag=20230115x7-d3925da019abe9fe
 
 	# `repos` is a list of Docker repos where the base-python image
 	# gets pulled-from/pushed-to.
