@@ -50,7 +50,6 @@ RUN apk --no-cache add \
   make \
   musl-dev \
   curl \
-  cython \
   docker-cli \
   git \
   iptables \
@@ -75,7 +74,8 @@ RUN apk --no-cache add \
 # https://github.com/jazzband/pip-tools/#versions-and-compatibility to
 # select a pip-tools version that corresponds to the 'py3-pip' and
 # 'python3' versions above.
-RUN pip3 install pip-tools==6.12.1
+# Pinning build version due to missing license info from pip show in newer versions
+RUN pip3 install "Cython<3.0" pip-tools==6.12.1 build==0.9.0
 
 RUN curl --fail -L https://dl.google.com/go/go1.19.4.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
@@ -88,9 +88,9 @@ RUN curl --fail -L https://storage.googleapis.com/kubernetes-release/release/v1.
 # Download, build, and install PyYAML.
 RUN mkdir /tmp/pyyaml && \
   cd /tmp/pyyaml && \
-  curl -o pyyaml-5.4.1.1.tar.gz -L https://github.com/yaml/pyyaml/archive/refs/tags/5.4.1.1.tar.gz && \
-  tar xzf pyyaml-5.4.1.1.tar.gz && \
-  cd pyyaml-5.4.1.1 && \
+  curl -o pyyaml-6.0.1.tar.gz -L https://github.com/yaml/pyyaml/archive/refs/tags/6.0.1.tar.gz && \
+  tar xzf pyyaml-6.0.1.tar.gz && \
+  cd pyyaml-6.0.1 && \
   python3 setup.py --with-libyaml install
 
 # orjson is also special.  The wheels on PyPI rely on glibc, so we
